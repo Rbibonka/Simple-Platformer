@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [DefaultExecutionOrder(-1)]
@@ -24,6 +23,7 @@ public sealed class Bootstrap : MonoBehaviour
         uiLoopController = new(mainMenu, gameUI);
 
         var player = Instantiate(playerConfig.PlayerPrefab);
+        player.Initialize();
         player.gameObject.SetActive(false);
 
         gameLoop = new(uiLoopController, player, levelConfig);

@@ -1,6 +1,6 @@
 using System;
 
-public class UILoopController : IDisposable
+public sealed class UILoopController : IDisposable
 {
     private MainMenuUI mainMenu;
     private GameUI gameUI;

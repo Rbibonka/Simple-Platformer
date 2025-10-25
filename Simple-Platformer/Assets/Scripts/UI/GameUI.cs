@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameUI : BaseUI
+public sealed class GameUI : BaseUI
 {
 
 }
