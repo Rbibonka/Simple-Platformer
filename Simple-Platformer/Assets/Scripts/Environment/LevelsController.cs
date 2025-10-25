@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LevelsController
+public sealed class LevelsController
 {
     private int currentLevelId;
     private LevelConfig levelConfig;

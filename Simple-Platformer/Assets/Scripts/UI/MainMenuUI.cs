@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class MainMenuUI : BaseUI
+public sealed class MainMenuUI : BaseUI
 {
     [SerializeField]
     private ButtonEventSender btn_Start;

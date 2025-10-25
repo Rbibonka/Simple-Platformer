@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Level : MonoBehaviour
+public sealed class Level : MonoBehaviour
 {
     [field: SerializeField]
     public Transform PlayerTransform { get; private set; }

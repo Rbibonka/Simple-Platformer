@@ -1,6 +1,6 @@
 using System;
 
-public class GameLoop : IDisposable
+public sealed class GameLoop : IDisposable
 {
     private UILoopController uiLoopController;
     private Player player;
