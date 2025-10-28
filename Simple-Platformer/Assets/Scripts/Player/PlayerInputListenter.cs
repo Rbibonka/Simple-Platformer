@@ -1,13 +1,13 @@
 using System;
-using System.Diagnostics;
 using UnityEngine.InputSystem;
 
-public class PlayerInputListenter : IDisposable
+public sealed class PlayerInputListenter : IDisposable
 {
     private PlayerInput playerInput;
 
     public event Action<float> InputMoved;
     public event Action InputJumped;
+    public event Action InputMoveEnded;
 
     public PlayerInputListenter()
     {
@@ -15,7 +15,18 @@ public class PlayerInputListenter : IDisposable
 
         playerInput.Player.Move.performed += Move;
         playerInput.Player.Jump.performed += Jump;
+        playerInput.Player.Move.canceled += EndMove;
 
+        StartListen();
+    }
+
+    public void StopListen()
+    {
+        playerInput.Player.Disable();
+    }
+
+    public void StartListen()
+    {
         playerInput.Player.Enable();
     }
 
@@ -29,10 +40,16 @@ public class PlayerInputListenter : IDisposable
         InputMoved?.Invoke(callbackContext.action.ReadValue<float>());
     }
 
+    private void EndMove(InputAction.CallbackContext callbackContext)
+    {
+        InputMoveEnded?.Invoke();
+    }
+
     public void Dispose()
     {
         playerInput.Player.Move.performed -= Move;
         playerInput.Player.Jump.performed -= Jump;
+        playerInput.Player.Move.canceled -= EndMove;
 
         playerInput.Player.Disable();
     }

@@ -13,9 +13,9 @@ TagManager:
   - UI
   - Ground
   - Player
-  - 
-  - 
-  - 
+  - Trap
+  - Enemy
+  - Coin
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Environment
+    uniqueID: 3267492681
+    locked: 0
+  - name: Player
+    uniqueID: 2507455771
+    locked: 0
+  - name: UI
+    uniqueID: 1012561759
+    locked: 0
+  - name: Fader
+    uniqueID: 959648263
     locked: 0

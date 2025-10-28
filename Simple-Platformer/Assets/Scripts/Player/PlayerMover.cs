@@ -1,14 +1,23 @@
 using UnityEngine;
 
-public class PlayerMover
+public sealed class PlayerMover
 {
-    private float moveSpeedModifier = 5f;
+    private float moveSpeedModifier;
     private Rigidbody2D rigidbody;
 
     private float inputSpeed;
 
-    public PlayerMover(Rigidbody2D rigidbody)
+    private float smallJumpModifier;
+    private float jumpModifier;
+
+    public float VelocityX => rigidbody.velocity.x;
+
+    public PlayerMover(Rigidbody2D rigidbody, float moveSpeedModifier, float smallJumpModifier, float jumpModifier)
     {
+        this.moveSpeedModifier = moveSpeedModifier;
+        this.smallJumpModifier = smallJumpModifier;
+        this.jumpModifier = jumpModifier;
+
         this.rigidbody = rigidbody;
     }
 
@@ -24,6 +33,23 @@ public class PlayerMover
 
     public void Jump()
     {
-        rigidbody.AddForce(Vector2.up * 70, ForceMode2D.Impulse);
+        AddForce(Vector2.up * jumpModifier);
+    }
+
+    public void JumpBack()
+    {
+        AddForce(-rigidbody.transform.right * moveSpeedModifier + Vector3.up * smallJumpModifier);
+    }
+
+    public void SmallJump()
+    {
+        AddForce(Vector2.up * smallJumpModifier);
+    }
+
+    private void AddForce(Vector2 force)
+    {
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = 0;
+        rigidbody.AddForce(force, ForceMode2D.Impulse);
     }
 }

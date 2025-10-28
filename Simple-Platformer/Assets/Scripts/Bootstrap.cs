@@ -4,7 +4,7 @@ using UnityEngine;
 public sealed class Bootstrap : MonoBehaviour
 {
     [SerializeField]
-    private LevelConfig levelConfig;
+    private LevelsConfig levelConfig;
 
     [SerializeField]
     private PlayerConfig playerConfig;
@@ -15,23 +15,28 @@ public sealed class Bootstrap : MonoBehaviour
     [SerializeField]
     private GameUI gameUI;
 
+    [SerializeField]
+    private UIFader uiFader;
+
+    [SerializeField]
+    private CameraFollower cameraFollower;
+
+    [SerializeField]
+    private EnemyConfig enemyConfig;
+
     private UILoopController uiLoopController;
     private GameLoop gameLoop;
 
     private void Awake()
     {
-        uiLoopController = new(mainMenu, gameUI);
+        uiLoopController = new(mainMenu, gameUI, uiFader);
 
-        var player = Instantiate(playerConfig.PlayerPrefab);
-        player.Initialize();
-        player.gameObject.SetActive(false);
-
-        gameLoop = new(uiLoopController, player, levelConfig);
+        gameLoop = new(uiLoopController, playerConfig, enemyConfig, levelConfig, cameraFollower);
         gameLoop.Initialize();
     }
 
     private void OnDestroy()
     {
-        
+        gameLoop.Dispose();
     }
 }
