@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b3ae1e92c42cec4792ea0cf39913f9d, type: 3}
+  m_Name: PatrollingEnemy
+  m_EditorClassIdentifier: 
+  <EnemyPrefab>k__BackingField: {fileID: 1853625073424518120, guid: 5dd8a4bb9db740e4c94b20a2855c66b0, type: 3}
+  <Damage>k__BackingField: 1
+  <Health>k__BackingField: 1

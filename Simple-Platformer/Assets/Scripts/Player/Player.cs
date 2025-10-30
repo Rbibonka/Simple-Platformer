@@ -1,64 +1,167 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public sealed class Player : MonoBehaviour
+public sealed class Player : MonoBehaviour, IDamagable
 {
     [SerializeField]
     private Rigidbody2D rigidbody2d;
 
     [SerializeField]
+    private FeetChecker feetChecker;
+
+    [SerializeField]
+    private PlayerCollision collisionChecker;
+
+    [SerializeField]
     private Animator animator;
 
     [SerializeField]
-    private GroundChecker groundChecker;
+    private PlayerAnimationEventListenter playerAnimationEventListenter;
 
+    private PlayerMoverController moverController;
     private PlayerAnimator playerAnimator;
-    private PlayerInputListenter playerInputListenter;
-    private PlayerMover playerMover;
-    private ObjectFlipper flipper;
+    private EntityDamageSystem damageSystem;
+    private EntityHealthSystem healthSystem;
+    private PlayerWallet wallet;
+
+    private bool isInitialize;
+
+    public event Action<int> HealthChanged;
+    public event Action<int> CoinsChanged;
+
+    public bool IsDead { get; private set; }
+
+    public int PlayerHealth => healthSystem.Health;
+
+    public int PlayerCoins => wallet.CoinsQuantity;
+
+    public Vector3 FeetPosition => feetChecker.transform.position;
+
+    private string coinsKey = "coins";
 
     private void FixedUpdate()
     {
-        playerMover.Move();
-    }
-
-    public void Initialize()
-    {
-        playerInputListenter = new();
-        playerMover = new(rigidbody2d);
-        playerAnimator = new(animator);
-        flipper = new(transform);
-
-        playerInputListenter.InputMoved += OnInputMoved;
-        playerInputListenter.InputJumped += OnInputJumped;
-    }
-
-    private void OnInputJumped()
-    {
-        if (!groundChecker.IsGround)
+        if (!isInitialize)
         {
             return;
         }
 
-        groundChecker.StartCheck();
-        groundChecker.Grounded += OnJumpEnded;
-
-        playerMover.Jump();
-        playerAnimator.Jump();
+        moverController.FixedUpdate();
     }
 
-    private void OnJumpEnded()
+    public void Initialize(PlayerConfig config)
     {
-        groundChecker.Grounded -= OnJumpEnded;
-        groundChecker.StopCheck();
+        wallet = new(PlayerPrefs.GetInt(coinsKey));
+        damageSystem = new(config.PlayerDamage);
+        healthSystem = new(config.PlayerHealth);
+        playerAnimator = new(animator, playerAnimationEventListenter);
+        moverController = new(rigidbody2d, feetChecker, playerAnimator, config);
 
-        playerAnimator.EndJump();
+        collisionChecker.Trapped += Trapped;
+        collisionChecker.DamageCaused += OnDamageCaused;
+        collisionChecker.CoinTook += OnCoinTook;
+
+        healthSystem.Dead += OnDead;
+        healthSystem.HealthChanged += OnHealthChanged;
+
+        wallet.CoinsChanged += OnCoinsChanged;
+        playerAnimator.DieAnimationEnd += OnDieAnimationEnd;
+
+        isInitialize = true;
+        IsDead = false;
+
+        rigidbody2d.velocity = Vector3.zero;
     }
 
-    private void OnInputMoved(float inputX)
+    public void Deinitialize()
     {
-        flipper.Flip(inputX);
+        collisionChecker.Trapped -= Trapped;
+        collisionChecker.DamageCaused -= OnDamageCaused;
+        collisionChecker.CoinTook -= OnCoinTook;
 
-        playerAnimator.SetMoveState(inputX);
-        playerMover.SetInputSpeed(inputX);
+        healthSystem.Dead -= OnDead;
+        healthSystem.HealthChanged -= OnHealthChanged;
+
+        wallet.CoinsChanged -= OnCoinsChanged;
+        playerAnimator.DieAnimationEnd -= OnDieAnimationEnd;
+        isInitialize = false;
+
+        moverController.Dispose();
+        playerAnimator.Dispose();
+    }
+
+    public void SaveCoins()
+    {
+        PlayerPrefs.SetInt(coinsKey, wallet.CoinsQuantity);
+    }
+
+    public void ResetCoins()
+    {
+        PlayerPrefs.SetInt(coinsKey, 0);
+    }
+
+    private void Trapped()
+    {
+        moverController.StopMoveControl();
+        healthSystem.Die();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (healthSystem.TryTakeDamage(damage))
+        {
+            if (healthSystem.Health == 0)
+            {
+                OnDead();
+            }
+            else
+            {
+                moverController.TakeDamage();
+            }
+        }
+    }
+
+    private void OnDamageCaused(IGetterDamagable damagableGetter)
+    {
+        EnemyDamagablePart part = (EnemyDamagablePart)damagableGetter;
+
+        if (FeetPosition.y < part.transform.position.y)
+        {
+            return;
+        }
+
+        moverController.CauseDamage();
+        damageSystem.CauseDamageTo(part.GetDamagable());
+    }
+
+    private void OnCoinTook(Coin coin)
+    {
+        coin.TakeCoin();
+        wallet.AddCoin();
+    }
+
+    private void OnCoinsChanged(int value)
+    {
+        CoinsChanged?.Invoke(value);
+    }
+
+    private void OnHealthChanged(int value)
+    {
+        HealthChanged?.Invoke(value);
+    }
+
+    private void OnDead()
+    {
+        moverController.StopMoveControl();
+
+        playerAnimator.Die();
+        playerAnimator.DieAnimationEnd += OnDieAnimationEnd;
+    }
+
+    private void OnDieAnimationEnd()
+    {
+        playerAnimator.DieAnimationEnd -= OnDieAnimationEnd;
+        IsDead = true;
     }
 }

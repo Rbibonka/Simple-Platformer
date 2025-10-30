@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: NewPlayerConfig
   m_EditorClassIdentifier: 
   <PlayerPrefab>k__BackingField: {fileID: 1215289260669175457, guid: 99cf04d38d0f86b4c973b2c55af24caf, type: 3}
+  <PlayerHealth>k__BackingField: 4
+  <PlayerDamage>k__BackingField: 1
+  <PlayerSpeed>k__BackingField: 6
+  <PlayerJumpForce>k__BackingField: 23
+  <PlayerSmallJumpForce>k__BackingField: 15

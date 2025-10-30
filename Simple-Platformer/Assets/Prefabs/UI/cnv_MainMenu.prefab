@@ -54,7 +54,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 2206391983132564747}
-  btn_Start: {fileID: 318231162101877537}
+  btn_Start: {fileID: 814301570748787677}
+  buttonEventSender: {fileID: 318231162101877537}
 --- !u!223 &5676348875006997362
 Canvas:
   m_ObjectHideFlags: 0
@@ -232,6 +233,34 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 317714825804903282, guid: e5653c67524554248b192559e0066047, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 317714825804903282, guid: e5653c67524554248b192559e0066047, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5f6afaedc754157428f6d1b99913fc89, type: 2}
+    - target: {fileID: 317714825804903282, guid: e5653c67524554248b192559e0066047, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 317714825804903282, guid: e5653c67524554248b192559e0066047, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7166298329001272596, guid: 5f6afaedc754157428f6d1b99913fc89, type: 2}
+    - target: {fileID: 317714825804903282, guid: e5653c67524554248b192559e0066047, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470383596719945226, guid: e5653c67524554248b192559e0066047, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470383596719945226, guid: e5653c67524554248b192559e0066047, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bfddd36c5b7fc1949aff6b9673d06427, type: 3}
     - target: {fileID: 4831840509758348151, guid: e5653c67524554248b192559e0066047, type: 3}
       propertyPath: m_Name
       value: btn_Start
@@ -330,6 +359,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ab546a19eab98b4196dc97710cca934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &814301570748787677 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2648976403846243976, guid: e5653c67524554248b192559e0066047, type: 3}
+  m_PrefabInstance: {fileID: 3427227187326192981}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &8981178274758670595 stripped
