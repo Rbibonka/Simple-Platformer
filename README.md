@@ -1,1 +1,3 @@
 Build: https://drive.google.com/drive/folders/144kkDLfMqIjxFpWKr5Qs-1tT2EjLNko_?usp=sharing
+
+Шипы убивают игрока, враги отнимают по одному здоровью, монетки (яблоки) сохраняются, при смерти пропадают. В игре 2 уровня, кнопки выхода нет.
