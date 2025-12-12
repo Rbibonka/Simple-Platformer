@@ -13,7 +13,7 @@
 - Простые ловушки при поадании в которые игрок умирает.
 - Анимации для врагов и игрока.
 
-Цель каждого уровня:
+## Цель каждого уровня:
 - Найти и победить всех врагов на уровне.
 
 ---
@@ -24,32 +24,32 @@
 
 ## На что следует обратить внимание в игре:
 
-Получение урона игроком от врагов, когда тот касается не их головы (Получаем урон только пока разбирмаемся с управлением): 
+#### Получение урона игроком от врагов, когда тот касается не их головы (Получаем урон только пока разбирмаемся с управлением): 
 <p align="center">
   <img src="Simple-Platformer/Assets/PreviewF/TakeDamage.gif" alt="TakeDamage" />
 </p>
 
-Смерть игрока от ловушеки (Нужно быть аккуратнее):
+#### Смерть игрока от ловушеки (Нужно быть аккуратнее):
 <p align="center">
   <img src="Simple-Platformer/Assets/PreviewF/Dead.gif" alt="Dead" />
 </p>
 
-Сбор валюты игроком (А зачем?):
+#### Сбор валюты игроком (А зачем?):
 <p align="center">
   <img src="Simple-Platformer/Assets/PreviewF/TakeApple.gif" alt="TakeApple" />
 </p>
 
-Время мести (Избиение врага):
+#### Время мести (Избиение врага):
 <p align="center">
   <img src="Simple-Platformer/Assets/PreviewF/GiveDamage.gif" alt="GiveDamage" />
 </p>
 
-Прыжок веры (Рискнули бы?):
+#### Прыжок веры (Рискнули бы?):
 <p align="center">
   <img height="412" width="342" src="Simple-Platformer/Assets/PreviewF/LeapOfJump.png" alt="LeapOfJump" />
 </p>
 
-Менее интрегующий вылет с карты с последующей смертью:
+#### Менее интрегующий вылет с карты с последующей смертью:
 <p align="center">
   <img height="412" width="342" src="Simple-Platformer/Assets/PreviewF/DeadFromSpace.gif" alt="DeadFromSpace" />
 </p>
